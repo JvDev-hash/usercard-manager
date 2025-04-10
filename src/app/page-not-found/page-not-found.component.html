@@ -1,0 +1,17 @@
+<div class="not-found-container">
+  <div class="not-found-content">
+    <h1 class="error-code">404</h1>
+    <h2 class="error-title">Página Não Encontrada</h2>
+    <p class="error-message">Desculpe, a página que você está procurando não existe ou foi movida.</p>
+    <div class="action-buttons">
+      <button mat-raised-button color="primary" routerLink="/workspace/welcome">
+        <mat-icon>home</mat-icon>
+        Voltar para o Início
+      </button>
+      <button mat-stroked-button color="primary" (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+        Voltar
+      </button>
+    </div>
+  </div>
+</div>

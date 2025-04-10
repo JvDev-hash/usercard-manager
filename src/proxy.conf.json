@@ -1,0 +1,17 @@
+{
+    "/api": {
+      "target": "http://localhost:8888",
+      "secure": false,
+      "pathRewrite": {
+              "^/api": ""
+          }
+    },
+
+        "/base": {
+          "target": "http://localhost:8889",
+          "secure": false,
+          "pathRewrite": {
+                  "^/base": ""
+              }
+        }
+}

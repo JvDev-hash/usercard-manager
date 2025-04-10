@@ -1,0 +1,99 @@
+<div class="users-insert-container">
+    <div class="users-insert-info">
+      <app-breadcrumbs
+        parentPath="/workspace/cards"
+        parentLabel="Cartões"
+        currentLabel="Novo Cartão">
+      </app-breadcrumbs>
+      <h2 class="form-title">Cadastro de Cartão</h2>
+      <form [formGroup]="cardForm" (ngSubmit)="onSubmit()" #myform="ngForm">
+        <div class="error-message" *ngIf="cardError">
+          <p>{{ cardError }}</p>
+        </div>
+
+        <div class="success-message" *ngIf="successMessage">
+          <p>{{ successMessage }}</p>
+        </div>
+
+        <div class="form-group">
+            <label for="usuario">Usuário</label>
+            <div *ngIf="isLoading" class="loading-indicator">Carregando usuários...</div>
+            <mat-form-field appearance="outline" class="full-width">
+              <input type="text"
+                     matInput
+                     id="usuario"
+                     formControlName="usuario"
+                     [matAutocomplete]="auto"
+                     placeholder="Digite para buscar um usuário"
+                     [attr.disabled]="isLoading ? '' : null"
+                     class="form-control">
+              <mat-autocomplete #auto="matAutocomplete" 
+                               [displayWith]="displayUserFn"
+                               (optionSelected)="onUserSelected($event)">
+                <mat-option *ngFor="let user of filteredUsers | async" [value]="user">
+                  {{user.nome}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+            <div class="error-message" *ngIf="cardForm.get('usuario')?.invalid && cardForm.get('usuario')?.touched">
+              <p *ngIf="cardForm.get('usuario')?.hasError('required')">Usuário é Obrigatório</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+          <label for="numeroCartao">Número</label>
+          <input type="number" 
+                 id="numeroCartao" 
+                 name="numeroCartao" 
+                 formControlName="numeroCartao" 
+                 required
+                 class="no-arrows"
+                 readonly >
+          <div class="error-message" *ngIf="cardForm.get('numeroCartao')?.invalid && cardForm.get('numeroCartao')?.touched">
+            <p *ngIf="cardForm.get('numeroCartao')?.hasError('required')">Número é Obrigatório</p>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="nome">Nome</label>
+          <input type="text" 
+                 id="nome" 
+                 name="nome" 
+                 formControlName="nome" 
+                 required
+                 placeholder="Digite o nome">
+          <div class="error-message" *ngIf="cardForm.get('nome')?.invalid && cardForm.get('nome')?.touched">
+            <p *ngIf="cardForm.get('nome')?.hasError('required')">Nome é Obrigatório</p>
+            <p *ngIf="cardForm.get('nome')?.hasError('minlength')">Nome deve ter no mínimo 3 caracteres</p>
+            <p *ngIf="cardForm.get('nome')?.hasError('maxlength')">Nome deve ter no máximo 40 caracteres</p>
+          </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="status">Status</label>
+            <select id="status" name="status" formControlName="status" required>
+              <option value="true">Ativo</option>
+              <option value="false">Inativo</option>
+            </select>
+            <div class="error-message" *ngIf="cardForm.get('status')?.invalid && cardForm.get('status')?.touched">
+              <p *ngIf="cardForm.get('status')?.hasError('required')">Status é Obrigatório</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+          <label for="tipoCartao">Tipo do Cartão</label>
+          <select id="tipoCartao" name="tipoCartao" formControlName="tipoCartao" required>
+            <option value="" disabled selected>Selecione um tipo</option>
+            <option value="COMUM">Comum</option>
+            <option value="ESTUDANTE">Estudante</option>
+            <option value="TRABALHADOR">Trabalhador</option>
+          </select>
+          <div class="error-message" *ngIf="cardForm.get('tipoCartao')?.invalid && cardForm.get('tipoCartao')?.touched">
+            <p *ngIf="cardForm.get('tipoCartao')?.hasError('required')">Tipo é Obrigatório</p>
+          </div>
+        </div>
+        
+        <button type="submit" class="btn btn-signin" [disabled]="!cardForm.valid">Cadastrar</button>
+      </form>
+    </div>
+  </div>

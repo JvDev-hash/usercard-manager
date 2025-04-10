@@ -1,0 +1,35 @@
+<div class="login-container">
+    <div class="login-right">
+      <div class="login-info">
+        <h3>Bem vindo ao Gerenciador</h3>
+        <p>Fazendo login, você pode acessar o gerenciador de usuários e cartões, onde poderá cadastrar pessoas e gerenciar seus cartões.</p>
+        <img src="https://images.klipfolio.com/website/public/bf9c6fbb-06bf-4f1d-88a7-d02b70902bd1/data-dashboard.png" alt="Dashboard example">
+      </div>
+    </div>
+    <div class="login-left">
+      <img src="logo.png" alt="logo">
+      <p>Logar com Email</p>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" #myform="ngForm">
+        <div class="error-message" *ngIf="loginError">
+          <p>{{ loginError }}</p>
+        </div>
+        
+        <label for="email">Email</label>
+        <input type="email" required id="email" name="email" placeholder="test@gmail.com" formControlName="email">
+        <div class="error-message" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+          <p *ngIf="loginForm.get('email')?.hasError('required')">Email é Obrigatório</p>
+          <p *ngIf="loginForm.get('email')?.hasError('email')">Insira um Email válido</p>
+        </div>
+        
+        <label for="password">Password</label>
+        <input type="password" required id="password" name="password" placeholder="******" formControlName="senha">
+        <div class="error-message" *ngIf="loginForm.get('senha')?.invalid && loginForm.get('senha')?.touched">
+          <p *ngIf="loginForm.get('senha')?.hasError('required')">Senha é Obrigatória</p>
+        </div>
+        
+        <button type="submit" class="btn btn-signin" [disabled]="!loginForm.valid">Entrar</button>
+      </form>
+
+    </div>
+  </div>
+  

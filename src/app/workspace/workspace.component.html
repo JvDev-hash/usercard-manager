@@ -1,0 +1,63 @@
+<div class="workspace-container">
+  <div class="dashboard-container">
+    <!-- Superior Bar (Mobile Only) -->
+    <div class="superior-bar">
+      <div class="left-section">
+        <button class="mobile-menu-button" (click)="toggleMenu()">
+          <i class="fas fa-bars"></i>
+        </button>
+        <h2>Gerenciador</h2>
+      </div>
+      <div class="right-section">
+        <div class="user-info">
+          <span class="user-name">Olá, {{ userName }} !</span>
+          <button class="logout-icon" (click)="logout()">
+            <i class="fas fa-sign-out-alt"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="main-content">
+      <div class="navbar-overlay" [class.active]="isMenuOpen" (click)="toggleMenu()"></div>
+
+      <nav class="navbar" [class.active]="isMenuOpen">
+        <div class="navbar-header">
+          <h2>Gerenciador</h2>
+        </div>
+        <ul>
+          <li [routerLinkActive]="['active']">
+            <a routerLink="/workspace/welcome" (click)="handleMenuItemClick()">
+              <i class="fas fa-home"></i>
+              <span>Home</span>
+            </a>
+          </li>
+          <li [routerLinkActive]="['active']">
+            <a routerLink="/workspace/users" (click)="handleMenuItemClick()">
+              <i class="fas fa-users"></i>
+              <span>Usuários</span>
+            </a>
+          </li>
+          <li [routerLinkActive]="['active']">
+            <a routerLink="/workspace/cards" (click)="handleMenuItemClick()">
+              <i class="fas fa-credit-card"></i>
+              <span>Cartões</span>
+            </a>
+          </li>
+        </ul>
+        <div class="navbar-footer">
+          <div class="user-info">
+            <span class="user-name">{{ userName }}</span>
+            <button class="logout-icon" (click)="logout()">
+              <i class="fas fa-sign-out-alt"></i>
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      <div class="content-area">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+.welcome-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.welcome-logo {
+  max-width: 300px;
+  opacity: 0.2;
+  filter: grayscale(100%);
+  transition: opacity 0.3s ease;
+}
+
+.welcome-logo:hover {
+  opacity: 0.3;
+}
