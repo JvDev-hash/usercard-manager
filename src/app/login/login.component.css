@@ -60,7 +60,6 @@ div {
     margin-top: 0.5rem;
     border: 1px solid #ccc;
     border-radius: 6px;
-    background-image: url('../../../public/mail.png') no-repeat left;
     background-position: 10px 10px; 
     background-repeat: no-repeat;
     padding-left: 30px;
