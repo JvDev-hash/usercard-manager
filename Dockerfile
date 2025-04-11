@@ -1,4 +1,4 @@
-FROM node:18.19.1 as build
+FROM node:18.19.1
 
 WORKDIR /app
 
@@ -8,4 +8,4 @@ RUN npm install -g @angular/cli
 
 RUN npm install
 
-CMD ["ng", "serve", "--host", "0.0.0.0"]
+CMD ["ng", "serve", "--disable-host-check", "--host", "0.0.0.0"]
