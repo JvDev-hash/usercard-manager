@@ -21,6 +21,15 @@ export interface User {
   nome: string;
   email: string;
   permissoes: string;
+  cartoes?: Cartao[];
+}
+
+export interface Cartao {
+  id: number;
+  numeroCartao: number;
+  nome: string;
+  status: boolean;
+  tipoCartao: string;
 }
 
 @Component({
@@ -55,6 +64,8 @@ export class UsersListComponent implements OnInit {
   showFilters = false;
   filterForm: FormGroup;
   permissao = localStorage.getItem("permissao");
+  expandedUser: User | null = null;
+  displayedSubColumns: string[] = ['id', 'numeroCartao', 'nome', 'tipoCartao', 'status'];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -99,6 +110,13 @@ export class UsersListComponent implements OnInit {
         (!filters.permissoes || user.permissoes.toLowerCase().includes(filters.permissoes.toLowerCase()))
       );
     });
+  }
+
+  toggleUserDetails(user: User): void {
+    this.expandedUser = this.expandedUser?.id === user.id ? null : user;
+    
+    // Force table to redraw (helps with animation)
+    this.dataSource.data = [...this.dataSource.data];
   }
 
   loadUsers() {

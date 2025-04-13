@@ -72,7 +72,15 @@
 
       <ng-container matColumnDef="nome">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Nome </th>
-        <td mat-cell *matCellDef="let element"> {{element.nome}} </td>
+        <td mat-cell *matCellDef="let element">
+          @if (element.cartoes && element.cartoes.length > 0) {
+            <a class="user-name-link" (click)="toggleUserDetails(element); $event.preventDefault()">
+              {{element.nome}}
+            </a>
+          } @else {
+            <span>{{element.nome}}</span>
+          }
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="email">
@@ -99,14 +107,63 @@
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+      </table>
 
-    <mat-paginator
-      [pageSizeOptions]="pageSizeOptions"
-      [pageSize]="pageSize"
-      [showFirstLastButtons]="showFirstLastButtons"
-      aria-label="Select page of users"
-      class="custom-paginator">
-    </mat-paginator>
+      <ng-container *ngIf="expandedUser">
+        <div class="expanded-content">
+          <div class="sub-table-container" *ngIf="expandedUser?.cartoes !== undefined">
+            <h3>Cartões do Usuário</h3>
+            
+            <table mat-table [dataSource]="expandedUser!.cartoes!" class="mat-elevation-z1 sub-table">
+              <!-- ID Column -->
+              <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef> ID </th>
+                <td mat-cell *matCellDef="let cartao"> {{cartao.id}} </td>
+              </ng-container>
+          
+              <!-- numeroCartao Column -->
+              <ng-container matColumnDef="numeroCartao">
+                <th mat-header-cell *matHeaderCellDef> Número </th>
+                <td mat-cell *matCellDef="let cartao"> 
+                  {{cartao.numeroCartao}}
+                </td>
+              </ng-container>
+          
+              <!-- nome Column -->
+              <ng-container matColumnDef="nome">
+                <th mat-header-cell *matHeaderCellDef> Nome </th>
+                <td mat-cell *matCellDef="let cartao"> {{cartao.nome}} </td>
+              </ng-container>
+          
+              <!-- tipoCartao Column -->
+              <ng-container matColumnDef="tipoCartao">
+                <th mat-header-cell *matHeaderCellDef> Tipo </th>
+                <td mat-cell *matCellDef="let cartao"> {{cartao.tipoCartao}} </td>
+              </ng-container>
+          
+              <!-- status Column -->
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef> Status </th>
+                <td mat-cell *matCellDef="let cartao">
+                  <span [class]="'status-badge ' + (cartao.status ? 'ativo' : 'inativo')">
+                    {{cartao.status ? 'Ativo' : 'Inativo'}}
+                  </span>
+                </td>
+              </ng-container>
+          
+              <tr mat-header-row *matHeaderRowDef="displayedSubColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedSubColumns;"></tr>
+            </table>
+          </div>
+        </div>
+      </ng-container>
+  
+      <mat-paginator
+        [pageSizeOptions]="pageSizeOptions"
+        [pageSize]="pageSize"
+        [showFirstLastButtons]="showFirstLastButtons"
+        aria-label="Select page of users"
+        class="custom-paginator">
+      </mat-paginator>
+    </div>
   </div>
-</div>
