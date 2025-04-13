@@ -25,9 +25,7 @@ export interface User {
 }
 
 export interface Cartao {
-  id: number;
   numeroCartao: number;
-  nome: string;
   status: boolean;
   tipoCartao: string;
 }
@@ -65,7 +63,7 @@ export class UsersListComponent implements OnInit {
   filterForm: FormGroup;
   permissao = localStorage.getItem("permissao");
   expandedUser: User | null = null;
-  displayedSubColumns: string[] = ['id', 'numeroCartao', 'nome', 'tipoCartao', 'status'];
+  displayedSubColumns: string[] = ['numeroCartao', 'tipoCartao', 'status'];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;

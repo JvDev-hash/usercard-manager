@@ -115,21 +115,12 @@
             <h3>Cartões do Usuário</h3>
             
             <table mat-table [dataSource]="expandedUser!.cartoes!" class="mat-elevation-z1 sub-table">
-              <ng-container matColumnDef="id">
-                <th mat-header-cell *matHeaderCellDef> ID </th>
-                <td mat-cell *matCellDef="let cartao"> {{cartao.id}} </td>
-              </ng-container>
           
               <ng-container matColumnDef="numeroCartao">
                 <th mat-header-cell *matHeaderCellDef> Número </th>
                 <td mat-cell *matCellDef="let cartao"> 
                   {{cartao.numeroCartao}}
                 </td>
-              </ng-container>
-          
-              <ng-container matColumnDef="nome">
-                <th mat-header-cell *matHeaderCellDef> Nome </th>
-                <td mat-cell *matCellDef="let cartao"> {{cartao.nome}} </td>
               </ng-container>
           
               <ng-container matColumnDef="tipoCartao">
